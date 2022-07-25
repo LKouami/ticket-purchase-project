@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="8455b32517f346a8a74b6a61b29992e9" Name="Diagram1">
+        <EntityTypeShape EntityType="BasetpModel.Bus" Width="1.5" PointX="5.25" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BasetpModel.Operation" Width="1.5" PointX="0.75" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BasetpModel.Route" Width="1.5" PointX="7.5" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BasetpModel.Ticket" Width="1.5" PointX="5.25" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BasetpModel.Treatment" Width="1.5" PointX="3" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BasetpModel.User" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="BasetpModel.FK_BUS_ASSOCIATI_TREATMEN" ManuallyRouted="false" />
+        <AssociationConnector Association="BasetpModel.FK_ROUTE_ASSOCIATI_BUS" ManuallyRouted="false" />
+        <AssociationConnector Association="BasetpModel.FK_TREATMEN_ASSOCIATI_OPERATIO" ManuallyRouted="false" />
+        <AssociationConnector Association="BasetpModel.FK_ROUTE_ASSOCIATI_TREATMEN" ManuallyRouted="false" />
+        <AssociationConnector Association="BasetpModel.FK_TICKET_ASSOCIATI_TREATMEN" ManuallyRouted="false" />
+        <AssociationConnector Association="BasetpModel.FK_TREATMEN_ASSOCIATI_USER" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

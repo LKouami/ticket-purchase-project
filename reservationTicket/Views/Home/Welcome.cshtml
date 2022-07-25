@@ -1,0 +1,9 @@
+﻿
+@{
+    ViewBag.Title = "Welcome";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Html.ActionLink("SignOut", "SignOut", "Account"); 
+<h2>Hello <b>@Context.User.Identity.Name</b> Bienvenu à l'application d'achat de tickets </h2>
+
+
