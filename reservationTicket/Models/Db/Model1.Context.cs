@@ -31,9 +31,7 @@ namespace reservationTicket.Models.Db
         public virtual DbSet<Ticket> Tickets { get; set; }
         public virtual DbSet<Treatment> Treatments { get; set; }
         public virtual DbSet<User> Users { get; set; }
-
-        public System.Data.Entity.DbSet<reservationTicket.Models.ViewModel.UserSignupView> UserSignupViews { get; set; }
-
-        public System.Data.Entity.DbSet<reservationTicket.Models.ViewModel.UserLoginView> UserLoginViews { get; set; }
+        public virtual DbSet<Role> Roles { get; set; }
+        public virtual DbSet<UserRole> UserRoles { get; set; }
     }
 }

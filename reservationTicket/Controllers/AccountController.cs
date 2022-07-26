@@ -9,12 +9,14 @@ using System.Web.Security;
 
 namespace reservationTicket.Controllers
 {
+    //Controleur du signup, login et signout
     public class AccountController : Controller
     {
         public ActionResult Signup()
         {
             return View();
         }
+        //Methode qui permet l'enrégistrement d'un utilisateur
         [HttpPost]
         public ActionResult Signup(UserSignupView usv)
         {
@@ -38,7 +40,8 @@ namespace reservationTicket.Controllers
         {
             return View();
         }
-
+        //Methode qui permet la connexion de l'utilisateur 
+        //Prend en parametre le Modele définit pour la connexion et le chemin de redirection en cas de success
         [HttpPost]
         public ActionResult LogIn(UserLoginView ulv, string returnUrl)
         {
@@ -63,7 +66,7 @@ namespace reservationTicket.Controllers
             }
             return View(ulv);
         }
-
+        //Methode qui permet de se déconnecter
         [Authorize]
         public ActionResult SignOut()
         {

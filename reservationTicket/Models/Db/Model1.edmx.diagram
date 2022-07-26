@@ -17,6 +17,10 @@
         <AssociationConnector Association="BasetpModel.FK_ROUTE_ASSOCIATI_TREATMEN" ManuallyRouted="false" />
         <AssociationConnector Association="BasetpModel.FK_TICKET_ASSOCIATI_TREATMEN" ManuallyRouted="false" />
         <AssociationConnector Association="BasetpModel.FK_TREATMEN_ASSOCIATI_USER" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="BasetpModel.Role" Width="1.5" PointX="6.25" PointY="7.875" />
+        <EntityTypeShape EntityType="BasetpModel.UserRole" Width="1.5" PointX="8" PointY="0.625" />
+        <AssociationConnector Association="BasetpModel.FK_UserRole_Role" />
+        <AssociationConnector Association="BasetpModel.FK_UserRole_User" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
