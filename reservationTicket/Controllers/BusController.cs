@@ -8,13 +8,14 @@ using System.Web.Mvc;
 
 namespace reservationTicket.Controllers
 {
+    //Controleur qui gère les bus
     public class BusController : Controller
     {
-        // GET: Bus
         public ActionResult Index()
         {
             return View();
         }
+        //Methode qui permet d'ajouter un bus
         [HttpPost]
         public ActionResult AddBus(BusView bsv)
         {

@@ -8,6 +8,7 @@ using System.Text;
 
 namespace reservationTicket.Models.ViewModel
 {
+    //Modele utilisé pour le signup
     public class UserSignupView
     {
         [Key]
@@ -24,7 +25,7 @@ namespace reservationTicket.Models.ViewModel
         public string password { get; set; }
         public string role { get; set; }
     }
-
+    //Modele utilisé pour le login
     public class UserLoginView
     {
         [Key]
