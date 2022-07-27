@@ -4,7 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-
+using reservationTicket.Models.ViewModel;
+using reservationTicket.Models.EntityManager;
 
 namespace reservationTicket.Controllers
 {
@@ -35,5 +36,20 @@ namespace reservationTicket.Controllers
         {
             return View();
         }
+
+        [AuthorizeRoles("Admin")]
+        public ActionResult ManageUserPartial()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                string loginName = User.Identity.Name;
+                UserManager um = new UserManager();
+                UserDataView udv = um.GetUserDataView(loginName);
+                return PartialView(udv);
+            }
+            return View();
+        }
+
+
     }
 }
