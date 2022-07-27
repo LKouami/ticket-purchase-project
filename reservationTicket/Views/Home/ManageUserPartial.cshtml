@@ -1,0 +1,36 @@
+﻿@model reservationTicket.Models.ViewModel.UserDataView
+
+<div>
+    <h1>Liste des utilisateurs</h1>
+    <span class="alert-success">@ViewBag.Message</span>
+    <table class="table table-striped table-condensed table-hover">
+        <thead>
+            <tr>
+                <th>User ID</th>
+                <th>Login ID</th>
+                <th>Password</th>
+                <th>Name</th>
+                <th>Telephone</th>
+                <th colspan="2">Role</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var i in Model.UserProfile)
+            {
+            <tr>
+                <td>@Html.DisplayFor(m => i.userId)</td>
+                <td>@Html.DisplayFor(m => i.username)</td>
+                <td>@Html.DisplayFor(m => i.password)</td>
+                <td>@Html.DisplayFor(m => i.name)</td>
+                <td>@Html.DisplayFor(m => i.tel)</td>
+                <td>@Html.DisplayFor(m => i.roleName)</td>
+                <td>@Html.HiddenFor(m => i.roleId)</td>
+                <td><a href="javacript:void(0)" class="lnkEdit"> Edit </a> </td>
+                <td><a href="javacript:void(0)" class="lnkDelete"> Delete </a> </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -15,10 +15,10 @@ namespace reservationTicket.Models.Db
     public partial class UserRole
     {
         public int id { get; set; }
-        public Nullable<int> user_id { get; set; }
-        public Nullable<int> role_id { get; set; }
-        public Nullable<bool> status { get; set; }
-        public Nullable<System.DateTime> creation_date { get; set; }
+        public int user_id { get; set; }
+        public int role_id { get; set; }
+        public bool status { get; set; }
+        public System.DateTime creation_date { get; set; }
     
         public virtual Role Role { get; set; }
         public virtual User User { get; set; }
