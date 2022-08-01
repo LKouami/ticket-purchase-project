@@ -1,0 +1,223 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BasetpModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Bus">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Tre_id" Type="int" Nullable="false" />
+    <Property Name="company_name" Type="varchar" MaxLength="254" />
+    <Property Name="matricule" Type="varchar" MaxLength="254" />
+  </EntityType>
+  <EntityType Name="Operation">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="operation_type" Type="varchar" MaxLength="254" />
+  </EntityType>
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="50" />
+    <Property Name="creation_date" Type="date" />
+  </EntityType>
+  <EntityType Name="Route">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Tre_id" Type="int" />
+    <Property Name="Bus_id" Type="int" Nullable="false" />
+    <Property Name="depart" Type="varchar" MaxLength="254" />
+    <Property Name="destination" Type="varchar" MaxLength="254" />
+    <Property Name="price" Type="float" />
+  </EntityType>
+  <EntityType Name="Ticket">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Tre_id" Type="int" Nullable="false" />
+    <Property Name="ticket_code" Type="varchar" MaxLength="254" />
+    <Property Name="creation_date" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Treatment">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Ope_id" Type="int" Nullable="false" />
+    <Property Name="Use_id" Type="int" Nullable="false" />
+    <Property Name="user_id" Type="int" />
+    <Property Name="operation_id" Type="int" />
+    <Property Name="ticket_id" Type="int" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="254" />
+    <Property Name="tel" Type="varchar" MaxLength="254" />
+    <Property Name="username" Type="varchar" MaxLength="254" />
+    <Property Name="password" Type="varchar" MaxLength="254" />
+    <Property Name="role" Type="varchar" MaxLength="254" />
+    <Property Name="status" Type="bit" />
+    <Property Name="creation_date" Type="datetime" />
+  </EntityType>
+  <EntityType Name="UserRole">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="user_id" Type="int" Nullable="false" />
+    <Property Name="role_id" Type="int" Nullable="false" />
+    <Property Name="status" Type="bit" Nullable="false" />
+    <Property Name="creation_date" Type="date" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_BUS_ASSOCIATI_TREATMEN">
+    <End Role="Treatment" Type="Self.Treatment" Multiplicity="1" />
+    <End Role="Bus" Type="Self.Bus" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Treatment">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Bus">
+        <PropertyRef Name="Tre_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ROUTE_ASSOCIATI_BUS">
+    <End Role="Bus" Type="Self.Bus" Multiplicity="1" />
+    <End Role="Route" Type="Self.Route" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Bus">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Route">
+        <PropertyRef Name="Bus_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ROUTE_ASSOCIATI_TREATMEN">
+    <End Role="Treatment" Type="Self.Treatment" Multiplicity="0..1" />
+    <End Role="Route" Type="Self.Route" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Treatment">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Route">
+        <PropertyRef Name="Tre_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TICKET_ASSOCIATI_TREATMEN">
+    <End Role="Treatment" Type="Self.Treatment" Multiplicity="1" />
+    <End Role="Ticket" Type="Self.Ticket" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Treatment">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Ticket">
+        <PropertyRef Name="Tre_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TREATMEN_ASSOCIATI_OPERATIO">
+    <End Role="Operation" Type="Self.Operation" Multiplicity="1" />
+    <End Role="Treatment" Type="Self.Treatment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Operation">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Treatment">
+        <PropertyRef Name="Ope_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TREATMEN_ASSOCIATI_USER">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="Treatment" Type="Self.Treatment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Treatment">
+        <PropertyRef Name="Use_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserRole_Role">
+    <End Role="Role" Type="Self.Role" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="UserRole" Type="Self.UserRole" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="UserRole">
+        <PropertyRef Name="role_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserRole_User">
+    <End Role="User" Type="Self.User" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="UserRole" Type="Self.UserRole" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="UserRole">
+        <PropertyRef Name="user_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="BasetpModelStoreContainer">
+    <EntitySet Name="Bus" EntityType="Self.Bus" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Operation" EntityType="Self.Operation" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Route" EntityType="Self.Route" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Ticket" EntityType="Self.Ticket" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Treatment" EntityType="Self.Treatment" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserRole" EntityType="Self.UserRole" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_BUS_ASSOCIATI_TREATMEN" Association="Self.FK_BUS_ASSOCIATI_TREATMEN">
+      <End Role="Treatment" EntitySet="Treatment" />
+      <End Role="Bus" EntitySet="Bus" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ROUTE_ASSOCIATI_BUS" Association="Self.FK_ROUTE_ASSOCIATI_BUS">
+      <End Role="Bus" EntitySet="Bus" />
+      <End Role="Route" EntitySet="Route" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ROUTE_ASSOCIATI_TREATMEN" Association="Self.FK_ROUTE_ASSOCIATI_TREATMEN">
+      <End Role="Treatment" EntitySet="Treatment" />
+      <End Role="Route" EntitySet="Route" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TICKET_ASSOCIATI_TREATMEN" Association="Self.FK_TICKET_ASSOCIATI_TREATMEN">
+      <End Role="Treatment" EntitySet="Treatment" />
+      <End Role="Ticket" EntitySet="Ticket" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TREATMEN_ASSOCIATI_OPERATIO" Association="Self.FK_TREATMEN_ASSOCIATI_OPERATIO">
+      <End Role="Operation" EntitySet="Operation" />
+      <End Role="Treatment" EntitySet="Treatment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TREATMEN_ASSOCIATI_USER" Association="Self.FK_TREATMEN_ASSOCIATI_USER">
+      <End Role="User" EntitySet="User" />
+      <End Role="Treatment" EntitySet="Treatment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserRole_Role" Association="Self.FK_UserRole_Role">
+      <End Role="Role" EntitySet="Role" />
+      <End Role="UserRole" EntitySet="UserRole" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserRole_User" Association="Self.FK_UserRole_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="UserRole" EntitySet="UserRole" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

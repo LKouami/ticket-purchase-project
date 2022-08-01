@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="basetpModelStoreContainer" CdmEntityContainer="basetpEntities">
+    <EntitySetMapping Name="Buses">
+      <EntityTypeMapping TypeName="basetpModel.Bus">
+        <MappingFragment StoreEntitySet="Bus">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="Tre_id" ColumnName="Tre_id" />
+          <ScalarProperty Name="company_name" ColumnName="company_name" />
+          <ScalarProperty Name="matricule" ColumnName="matricule" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Operations">
+      <EntityTypeMapping TypeName="basetpModel.Operation">
+        <MappingFragment StoreEntitySet="Operation">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="operation_type" ColumnName="operation_type" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Routes">
+      <EntityTypeMapping TypeName="basetpModel.Route">
+        <MappingFragment StoreEntitySet="Route">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="Tre_id" ColumnName="Tre_id" />
+          <ScalarProperty Name="Bus_id" ColumnName="Bus_id" />
+          <ScalarProperty Name="depart" ColumnName="depart" />
+          <ScalarProperty Name="destination" ColumnName="destination" />
+          <ScalarProperty Name="price" ColumnName="price" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tickets">
+      <EntityTypeMapping TypeName="basetpModel.Ticket">
+        <MappingFragment StoreEntitySet="Ticket">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="Tre_id" ColumnName="Tre_id" />
+          <ScalarProperty Name="ticket_code" ColumnName="ticket_code" />
+          <ScalarProperty Name="creation_date" ColumnName="creation_date" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Treatments">
+      <EntityTypeMapping TypeName="basetpModel.Treatment">
+        <MappingFragment StoreEntitySet="Treatment">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="Ope_id" ColumnName="Ope_id" />
+          <ScalarProperty Name="Use_id" ColumnName="Use_id" />
+          <ScalarProperty Name="user_id" ColumnName="user_id" />
+          <ScalarProperty Name="operation_id" ColumnName="operation_id" />
+          <ScalarProperty Name="ticket_id" ColumnName="ticket_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="basetpModel.User">
+        <MappingFragment StoreEntitySet="User">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="tel" ColumnName="tel" />
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="role" ColumnName="role" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="creation_date" ColumnName="creation_date" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
