@@ -1,5 +1,9 @@
-﻿@model reservationTicket.Models.ViewModel.UserDataView
-
+﻿@{
+    ViewBag.Title = "ManageUserPartial";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model reservationTicket.Models.ViewModel.UserDataView
+<span class="alert-success">@ViewBag.Message</span>
 <div>
     <h1>Liste des utilisateurs</h1>
     <span class="alert-success">@ViewBag.Message</span>
@@ -17,20 +21,121 @@
             </tr>
         </thead>
         <tbody>
-            @foreach(var i in Model.UserProfile)
+            @foreach (var i in Model.UserProfile)
             {
-            <tr>
-                <td>@Html.DisplayFor(m => i.userId)</td>
-                <td>@Html.DisplayFor(m => i.username)</td>
-                <td>@Html.DisplayFor(m => i.password)</td>
-                <td>@Html.DisplayFor(m => i.name)</td>
-                <td>@Html.DisplayFor(m => i.tel)</td>
-                <td>@Html.DisplayFor(m => i.roleName)</td>
-                <td>@Html.HiddenFor(m => i.roleId)</td>
-                <td><a href="javacript:void(0)" class="lnkEdit"> Edit </a> </td>
-                <td><a href="javacript:void(0)" class="lnkDelete"> Delete </a> </td>
-            </tr>
+                <tr>
+                    <td>@Html.DisplayFor(m => i.userId)</td>
+                    <td>@Html.DisplayFor(m => i.username)</td>
+                    <td>@Html.DisplayFor(m => i.password)</td>
+                    <td>@Html.DisplayFor(m => i.name)</td>
+                    <td>@Html.DisplayFor(m => i.tel)</td>
+                    <td>@Html.DisplayFor(m => i.roleName)</td>
+                    <td>@Html.HiddenFor(m => i.roleId)</td>
+                    <td><a href="javascript:void(0)" class="lnkEdit"> Edit </a> </td>
+                    <td><a href="javascript:void(0)" class="lnkDelete"> Delete </a> </td>
+                </tr>
             }
         </tbody>
     </table>
 </div>
+<div id="divEdit" style="display: none">
+    <input type="hidden" id="hidId" />
+    <table>
+        <tr>
+            <td>Login ID</td>
+            <td> <input type="text" id="txtLoginName" class="form-control" /> </td>
+        </tr>
+        <tr>
+            <td>Password</td>
+            <td> <input type="text" id="txtPassword" class="form-control" /> </td>
+        </tr>
+        <tr>
+            <td>Name</td>
+            <td> <input type="text" id="txtName" class="form-control" /> </td>
+        </tr>
+        <tr>
+            <td>Telephone</td>
+            <td> <input type="text" id="txtTel" class="form-control" /> </td>
+        </tr>
+        <tr>
+            <td>Role</td>
+            <td>
+                @Html.DropDownListFor(o => o.UserRoles.SelectRoleId,
+                                       new SelectList(Model.UserRoles.UserRoleList, "id", "name"),
+                                       "",
+                                       new { id = "ddlRoles", @class = "form-control" })
+            </td>
+        </tr>
+    </table>
+</div>
+
+<script type="text/javascript">
+
+    $(function () {
+        var initDialog = function (type) {
+            var title = type;
+            $("#divEdit").dialog({
+                autoOpen: false,
+                modal: true,
+                title: type + ' User',
+                width: 360,
+                buttons: {
+                    Save: function () {
+                        var id = $("#hidId").val();
+                        var username = $("#txtLoginName").val();
+                        var password = $("#txtPassword").val();
+                        var name = $("#txtName").val();
+                        var tel = $("#txtTel").val();
+                        var roleId = $("#ddlRoles").val();
+
+                        UpdateUser(id, username, password, name, tel, roleId);
+                        $(this).dialog("destroy");
+                    },
+                    Cancel: function () {
+                        $(this).dialog("destroy");
+                    }
+
+                }
+            });
+        }
+        function UpdateUser(logId, logUsername, logPass, logName, logTel, logRoleId) {
+            $.ajax({
+                type: "POST",
+                url: "@(Url.Action("UpdateUserData", "Home"))",
+                data: {
+                    userId = logId,
+                    loginName = logUsername,
+                    password = logPass,
+                    name = logName,
+                    tel = logTel,
+                    roleId = logRoleId
+                },
+                success: function (data) {
+                    $("divUserListContainer").load({
+                        @(Url.Action("ManageUserPartial", "Home", new {
+                        status = "Update"
+                    }))
+                    });
+                },
+                error: function (error) {
+
+                }
+
+            });
+        }
+        $("a.lnkEdit").on("click", function () {
+            initDialog("Edit");
+            $(".alert-success").empty();
+            var row = $(this).closest('tr');
+            $("#hidId").val(row.find("td:eq(0)").html().trim());
+            $("#txtLoginName").val(row.find("td:eq(1)").html().trim());
+            $("#txtPassword").val(row.find("td:eq(2)").html().trim());
+            $("#txtName").val(row.find("td:eq(3)").html().trim());
+            $("#txtTel").val(row.find("td:eq(4)").html().trim());
+            $("#ddlRoles").val(row.find("td:eq(5) > input").html().trim());
+            $("#divEdit").dialog("open");
+
+            return false;
+        });
+    });
+</script>

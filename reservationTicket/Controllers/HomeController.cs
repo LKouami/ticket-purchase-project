@@ -38,16 +38,44 @@ namespace reservationTicket.Controllers
         }
 
         [AuthorizeRoles("Admin")]
-        public ActionResult ManageUserPartial()
+        public ActionResult ManageUserPartial(string status = "")
         {
             if (User.Identity.IsAuthenticated)
             {
                 string loginName = User.Identity.Name;
                 UserManager um = new UserManager();
                 UserDataView udv = um.GetUserDataView(loginName);
+                string message = string.Empty;
+                if (status.Equals("Update"))
+                {
+                    message = "Update successfull";
+                } else if (status.Equals("Delete"))
+                {
+                    message = "Delete successfull";
+                }
+                ViewBag.Message = message;
                 return PartialView(udv);
             }
-            return View();
+
+            return RedirectToAction("Index", "Home") ;
+        }
+
+        public ActionResult UpdateUserData(int userId, string loginName, string password, string name, string tel, int roleId = 0)
+        {
+            UserProfileView upv = new UserProfileView();
+            upv.userId = userId;
+            upv.username = loginName;
+            upv.password = password;
+            upv.name = name;
+            upv.tel = tel;
+            if(roleId > 0)
+            {
+                upv.roleId = roleId;
+            }
+
+            UserManager um = new UserManager();
+            um.UpdateUserAccount(upv);
+            return Json(new { success = true });
         }
 
 
